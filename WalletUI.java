@@ -1,8 +1,11 @@
 package com.wallet.ui;
 
+import java.util.Iterator;
+import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
+import com.wallet.bean.Transactions;
 import com.wallet.bean.WalletBean;
 import com.wallet.service.WalletService;
 
@@ -15,7 +18,7 @@ public static void main(String[] args) {
 	do
 	{
 		
-	System.out.println("************\tXYZ WALLET APPLICATION\t*************");
+	System.out.println("************\tBANK WALLET APPLICATION\t*************");
 	System.out.println("1.Create Account");
 	System.out.println("2.Balance Enquiry");
 	System.out.println("3.Deposit");
@@ -42,38 +45,63 @@ public static void main(String[] args) {
 		System.out.println("Account Holder Name:"+name);
 		System.out.println("Balance:"+balance);
 		ws.createAccount(wbCreateAccount);
+		break;
 	}
 	case 2:
 	{	System.out.println("Enter your Account Number:");
 		String accNo=s.next();
-		ws.balanceEnquiry(accNo);
+		double bal=ws.balanceEnquiry(accNo);
+		System.out.println("Balance:"+bal);
+		break;
 	}
 	case 3:
 	{	System.out.println("Enter your Account Number:");
 		String accNo=s.next();
 		System.out.println("Enter deposit Amount");
 		double dep=s.nextDouble();
-		ws.deposit(accNo,dep);
+		double bal=ws.deposit(accNo,dep);
+		System.out.println("Amount Deposited\nUpdated Balance:"+bal);
+		break;
 	}
 	case 4:
 	{	System.out.println("Enter your Account Number:");
 		String accNo=s.next();
 		System.out.println("Enter Withdrawal Amount");
 		double wAmt=s.nextDouble();
-		ws.withdrawal(accNo,wAmt);
+		double bal=ws.withdrawal(accNo,wAmt);
+		System.out.println("Withdrawal Complete\nUpdated Balance:"+bal);
+		break;
 	}
 	case 5:
-	{	System.out.println("Enter your Account Number:");
+	{	
+		System.out.println("Enter your Account Number:");
 		String accNo=s.next();
 		System.out.println("Enter Receipent's Account Number");
 		String ran=s.next();
 		System.out.println("Enter Transfer Amount");
 		double tAmt=s.nextDouble();
-		ws.transfer(accNo,ran,tAmt);
+		double bal=ws.transfer(accNo,ran,tAmt);
+		System.out.println("Transaction Complete...\n"+tAmt+" transferred from "+accNo+" to "+ran+"\nUpdatedBalance:"+bal);
+		break;
 	}
 	case 6:
-	{
-		ws.miniStatement();
+	{	System.out.println("Enter your Account Number:");
+		String accNo=s.next();
+		List<?> l=ws.miniStatement(accNo);
+		Iterator<?> i=l.iterator();
+		{
+			while(i.hasNext())
+			{
+				Transactions ts=(Transactions) i.next();
+				System.out.println("Transaction ID:"+ts.getTransId());
+				System.out.println("Account From:"+ts.getAccNoFrom());
+				System.out.println("Account To:"+ts.getAccNoTo());
+				System.out.println("Transaction Type:"+ts.gettType());
+				System.out.println("Amount:"+ts.getAmt());
+				System.out.println("Balance:"+ts.getBalance());
+			}
+		}
+		break;
 	}
 	default:
 		System.out.println("Exitting Application");
@@ -83,9 +111,9 @@ public static void main(String[] args) {
 	c=s.next().charAt(0);
 	if(c=='y'||c=='Y')
 		continue;
-	else
+	else if(c=='n'||c=='N')
 		System.out.println("Exiting from Wallet Application");
-		
+		break;
 		
 }while(ch!=6);
 }
@@ -95,4 +123,5 @@ private static int getRandomNumberInRange(int min, int max)
 
 	Random r = new Random();
 	return r.nextInt((max - min) + 1) + min;
+}
 }

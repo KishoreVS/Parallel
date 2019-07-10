@@ -1,10 +1,16 @@
 package com.wallet.service;
 
+import java.util.ArrayList;
+
+import com.wallet.bean.Transactions;
+import com.wallet.bean.WalletBean;
+
 public interface WalletServiceI {
-	public void createAccount(WalletBean wbCreateAccount) ;
-	public void balanceEnquiry(String accNo);
-	public void deposit(String accNo,double dep);
-	public void withdrawal(String accNo,double wAmt);
-	public void transfer(String accNo,String ran,double tAmt);
-	public void miniStatement();
+	public WalletBean createAccount(WalletBean wbCreateAccount) ;
+	public double balanceEnquiry(String accNo);
+	public double deposit(String accNo,double dep);
+	public double withdrawal(String accNo,double wAmt);
+	public double transfer(String accNo,String ran,double tAmt);
+	public ArrayList<Transactions> miniStatement(String accNo);
+	
 }

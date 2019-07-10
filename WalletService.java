@@ -1,35 +1,46 @@
 package com.wallet.service;
 
+import java.util.ArrayList;
+
+import com.wallet.bean.Transactions;
+import com.wallet.bean.WalletBean;
+import com.wallet.dao.WalletDao;
+
 public class WalletService implements WalletServiceI {
 
 	WalletDao wd=new WalletDao();
+
 	@Override
-	public void balanceEnquiry(String accNo) {
-		// TODO Auto-generated method stub
-		
+	public WalletBean createAccount(WalletBean wbCreateAccount) {
+		return wd.createAccount(wbCreateAccount);
 	}
+
 	@Override
-	public void deposit(String accNo, double dep) {
-		// TODO Auto-generated method stub
+	public double balanceEnquiry(String accNo) {
+		return wd.balanceEnquiry(accNo);
 	}
+
 	@Override
-	public void withdrawal(String accNo, double wAmt) {
-		// TODO Auto-generated method stub
-		
+	public double deposit(String accNo, double dep) {
+		return wd.deposit(accNo, dep);
 	}
+
 	@Override
-	public void transfer(String accNo, String ran, double tAmt) {
-		// TODO Auto-generated method stub
-		
+	public double withdrawal(String accNo, double wAmt) {
+		return wd.withdrawal(accNo, wAmt);
 	}
+
 	@Override
-	public void miniStatement() {
-		// TODO Auto-generated method stub
-		
+	public double transfer(String accNo, String ran, double tAmt) {
+		return wd.transfer(accNo, ran, tAmt);
 	}
+
 	@Override
-	public void createAccount(WalletBean wbCreateAccount) {
-		// TODO Auto-generated method stub
-		
+	public ArrayList<Transactions> miniStatement(String accNo) {
+		return wd.miniStatement(accNo);
+	
 	}
+
+	
+	
 }
