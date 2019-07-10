@@ -46,21 +46,30 @@ public static void main(String[] args) {
 	case 2:
 	{	System.out.println("Enter your Account Number:");
 		String accNo=s.next();
-		ws.balanceEnquiry();
-		WalletBean wbBalanceEnquiry=new WalletBean(accNo);
-		ws.balance(wbBalanceEnquiry);
+		ws.balanceEnquiry(accNo);
 	}
 	case 3:
-	{
-		ws.deposit();
+	{	System.out.println("Enter your Account Number:");
+		String accNo=s.next();
+		System.out.println("Enter deposit Amount");
+		double dep=s.nextDouble();
+		ws.deposit(accNo,dep);
 	}
 	case 4:
-	{
-		ws.withdrawal();
+	{	System.out.println("Enter your Account Number:");
+		String accNo=s.next();
+		System.out.println("Enter Withdrawal Amount");
+		double wAmt=s.nextDouble();
+		ws.withdrawal(accNo,wAmt);
 	}
 	case 5:
-	{
-		ws.transfer();
+	{	System.out.println("Enter your Account Number:");
+		String accNo=s.next();
+		System.out.println("Enter Receipent's Account Number");
+		String ran=s.next();
+		System.out.println("Enter Transfer Amount");
+		double tAmt=s.nextDouble();
+		ws.transfer(accNo,ran,tAmt);
 	}
 	case 6:
 	{
@@ -86,5 +95,4 @@ private static int getRandomNumberInRange(int min, int max)
 
 	Random r = new Random();
 	return r.nextInt((max - min) + 1) + min;
-}
 }
